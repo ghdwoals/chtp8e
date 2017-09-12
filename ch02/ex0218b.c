@@ -13,11 +13,10 @@ int main(int argc, char *argv[]) {
         usage();
 
     // Assume user will enter two integers.
+    // Apparently, floats are truncated.
     // Unexpected behavior expected otherwise.
     for (i = 1; i < argc; i++)
-        if ((*argv[i] = atoi(argv[i])) == 1)
-            continue;
-        else
+        if ((*argv[i] = atoi(argv[i])) == 0)
             usage();
 
     if (*argv[1] > *argv[2])

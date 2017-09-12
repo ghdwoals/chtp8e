@@ -38,6 +38,7 @@ void usage(void) {
     exit(EXIT_FAILURE);
 }
 
+// Do not necessarily have to validate via return value.
 int validate(char *string) {
     int length = strlen(string);
     int i;

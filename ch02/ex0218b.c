@@ -1,28 +1,32 @@
 // Program tested using variety of inputs.
-// Break it? Permission granted.
+// Break it? Permission dutifully granted.
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 #define PROGRAM_NAME "ex0218"
 
 void usage(void);
+int validate(char *string);
 int main(int argc, char *argv[]) {
     int i;
+    int j;
+    int numbers[2];
 
     if (argc != 3)
         usage();
 
-    // Assume user will enter two integers.
-    // Apparently, floats are truncated.
-    // Unexpected behavior expected otherwise.
-    for (i = 1; i < argc; i++)
-        if ((*argv[i] = atoi(argv[i])) == 0)
-            usage();
+    // Never assume user will enter two integers.
+    // Validated against numerous tests.
+    for (i = 0, j = 1; j < argc; j++, i++)
+        if (validate(argv[j]))
+            numbers[i] = atoi(argv[j]);
 
-    if (*argv[1] > *argv[2])
-        printf("%d is larger.\n", *argv[1]);
-    else if (*argv[2] > *argv[1])
-        printf("%d is larger.\n", *argv[2]);
+    if (numbers[0] > numbers[1])
+        printf("%d is larger.\n", numbers[0]);
+    else if (numbers[1] > numbers[0])
+        printf("%d is larger.\n", numbers[1]);
     else
         printf("These numbers are equal.\n");
 
@@ -32,4 +36,15 @@ int main(int argc, char *argv[]) {
 void usage(void) {
     printf("%s requires two integers.\n", PROGRAM_NAME);
     exit(EXIT_FAILURE);
+}
+
+int validate(char *string) {
+    int length = strlen(string);
+    int i;
+
+    for (i = 0; i < length; i++)
+        if (!isdigit(string[i]))
+            usage();
+
+    return 1;
 }
